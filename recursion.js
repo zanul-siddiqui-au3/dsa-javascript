@@ -18,52 +18,93 @@ function reachStairN(n){
 }
 // console.log(reachStairN(10))
 
-// function palindromeStr(str){
-//     let result = '';
-//     function helperFn(str){
-//         if(str.length === 0) return result;
-//          result += str.charAt(str.length - 1);
-//         return helperFn(str.substring(str.length - 1 , 0))
-//     };
-//     return str === helperFn(str)
-// }
+function palindromeStr(str){
+    let result = '';
+    function helperFn(str){
+        if(str.length === 0) return result;
+         result += str.charAt(str.length - 1);
+        return helperFn(str.substring(str.length - 1 , 0))
+    };
+    return str === helperFn(str)
+}
 // console.log(palindromeStr('a'))
 
-// function palindromeStrPointer(str){
-//     function helperFn(left, right){
-//         if(left >= right) return true;
-//         if(str.charAt(left) != str.charAt(right)) return false;
-//         left++;
-//         right--;
-//         return helperFn(left, right)
-//     }
-//     return helperFn(0, str.length - 1)
-// }
+function palindromeStrPointer(str){
+    function helperFn(left, right){
+        if(left >= right) return true;
+        if(str.charAt(left) != str.charAt(right)) return false;
+        left++;
+        right--;
+        return helperFn(left, right)
+    }
+    return helperFn(0, str.length - 1)
+}
 
 // console.log(palindromeStrPointer('bbcbb'))
 
-// function reverseArray(arr,left,right){
-//     if(left >= right) return arr;
-//     [arr[left], arr[right]] = [arr[right], arr[left]];
-//     left++;
-//     right--;
-//     return reverseArray(arr,left,right)
-// }
-// let arr = [1,2,3,4,5];
+function reverseArray(arr,left,right){
+    if(left >= right) return arr;
+    [arr[left], arr[right]] = [arr[right], arr[left]];
+    left++;
+    right--;
+    return reverseArray(arr,left,right)
+}
+let arr = [1,2,3,4,5];
 // console.log(reverseArray(arr, 0, arr.length - 1))
 
-function powerSet(str){
-    function helperFn(str, tempStr, i){
-        if(i === str.length){
-            console.log(tempStr);
+// SubSequences 
+// function powerSet(str){
+//     function helperFn(newStr, i){
+//         if(i === str.length){
+//             console.log(newStr);
+//             return;
+//         }   
+           // take it 
+//         helperFn(newStr+ str.charAt(i), i+1);
+//         not take it   
+//         helperFn(newStr, i+1);
+//     }
+//     return helperFn('', 0)
+// }
+
+// console.log(powerSet('abc'))
+
+// // Subset of an array
+// function subArray(arr){
+//     let result =  [];
+//     function helperFn(newArr, i){
+//         if(i === arr.length){
+//             result.push(newArr);
+//             return;
+//         }
+//         // takeit
+//         helperFn([...newArr, arr[i]], i+1)
+//         // not take it
+//         helperFn(newArr, i+1)
+//     }
+//     helperFn([], 0)
+//     return result
+// }
+// console.log(subArray([1,2,3]))
+
+
+// Subset sum problem 
+function subSetSum(arr, sum){
+    let result = 0;
+    function helperFn(newArr, i){
+        if(i === arr.length){
+            const tempSum = newArr.reduce((prev, current)=> prev += current ,0);
+            if(tempSum === sum){
+                result++
+            }
             return;
         }
-        //take
-        // i++;
-        helperFn(str,tempStr + str.charAt(i), i + 1);
-        // Not take
-        helperFn(str,tempStr, i + 1);
+        // Include
+        helperFn([...newArr, arr[i]], i + 1)
+        // Exclude
+        helperFn(newArr, i + 1)
     }
-    return helperFn(str, '', 0)
+    helperFn([], 0);
+    return result ? true : false;
 }
-console.log(powerSet('abc'))
+console.log(subSetSum([3,34,4,12,5,2], 30))

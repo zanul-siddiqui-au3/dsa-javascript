@@ -89,22 +89,68 @@ let arr = [1,2,3,4,5];
 
 
 // Subset sum problem 
-function subSetSum(arr, sum){
-    let result = 0;
-    function helperFn(newArr, i){
+// function subSetSum(arr, sum){
+//     let result = 0;
+//     function helperFn(newArr, i){
+//         if(i === arr.length){
+//             const tempSum = newArr.reduce((prev, current)=> prev += current ,0);
+//             if(tempSum === sum){
+//                 result++
+//             }
+//             return;
+//         }
+//         // Include
+//         helperFn([...newArr, arr[i]], i + 1)
+//         // Exclude
+//         helperFn(newArr, i + 1)
+//     }
+//     helperFn([], 0);
+//     return result ? true : false;
+// }
+// console.log(subSetSum([3,34,4,12,5,2], 30))
+
+// function permutations(arr){
+//     function helperFn(newArr, i){
+//         if(i === newArr.length){
+//             console.log(newArr);
+//             return;
+//         }
+//         for(let j = i; j < newArr.length; j++){
+//             [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+//             helperFn(newArr, i + 1);
+//             [newArr[j], newArr[i]] = [newArr[i], newArr[j]];
+//         }
+//     }
+
+//     return helperFn(arr, 0);
+// }
+
+// console.log(permutations([1,2,3], 0))
+
+function combinations(arr){
+    const obj = {
+        1: '',
+        2: 'abc',
+        3: 'def',
+        4: 'ghi',
+        5: 'jkl',
+        6: 'mno',
+        7: 'pqrs',
+        8: 'tuv',
+        9: 'yz'
+    };
+    function helperFn(i, resultStr){
         if(i === arr.length){
-            const tempSum = newArr.reduce((prev, current)=> prev += current ,0);
-            if(tempSum === sum){
-                result++
-            }
+            console.log(resultStr)
             return;
+        };
+        for(let j = 0; j < obj[arr[i]].length; j++){
+            let tempStr = resultStr + obj[arr[i]].charAt(j); // Use a temporary string
+            helperFn(i+1, tempStr);
         }
-        // Include
-        helperFn([...newArr, arr[i]], i + 1)
-        // Exclude
-        helperFn(newArr, i + 1)
     }
-    helperFn([], 0);
-    return result ? true : false;
+
+    return helperFn(0, '');
 }
-console.log(subSetSum([3,34,4,12,5,2], 30))
+
+console.log(combinations([2,3,4]))
